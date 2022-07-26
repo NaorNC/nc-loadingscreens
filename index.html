@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <link rel="stylesheet" href="assets/css/all.min.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/fonts.css">
+        <title>NC Loading</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/scripts/all.min.js"></script>
+    </header>
+    <body>
+        <iframe id="youtube-player" class="bg" src="https://www.youtube.com/embed/gYO1uk7vIcc?enablejsapi=1&autoplay=1&loop=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+        <img id="cursor" src="assets/media/cursor.png">
+        <div class="overlay">
+            <div class="cornercontainer">
+                <div class="top">
+                    <div class="left">
+                        <p class="title">NaorNC Test Server RP</p>
+                        <p class="date" id="date"></p>
+                        <p class="state" id="clients">0/0</p>
+                    </div>
+                    <div class="right">
+                        <img class="logo" src="assets/media/logo.png">
+                    </div>
+                </div>
+
+                <div class="sounds">
+                    <div class="switch">
+                        <label class="form-switch">
+                            <input type="checkbox" id="sounds">
+                            <i></i>
+                        </label>
+                        <span class="left">Start</span>
+                        <span class="right">Stop</span>
+                    </div>
+                    <div class="icon"><i class="fas fa-volume"></i></div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="information">
+                    <p class="title">NaorNC Test Server RP</p>
+                    <div class="description"><p>Welcome to the new RP City - Test Server! We have room for all kinds of work. Reality available, exclusive homes, cars and custom sounds, serious role-playing & for questions you can open a card at Discord - we have an active team waiting just for you (24/7)!
+                        If you really expected a lot of time for a quality server and have not found it by now, we promise you that you are going to enjoy every moment with us.
+                        We will make sure to provide you with the best experience. Thank you for taking part with us on the server.</p></div>
+                    <div class="buttons">
+                        <button id="read-more">Read More! <i class="fal fa-long-arrow-right" style="margin-left: 0.4vw;font-size: 0.9vw;"></i></button>
+                        <button id="collapse" style="display: none;">Thanks, Read Less!</button>
+                    </div>
+                </div>
+
+                <div class="loader">
+                    <div class="logo">
+                        <img class="transparent-logo" src="assets/media/transparent-logo.png">
+                        <img class="filled-logo" src="assets/media/filled-logo.png">
+                    </div>
+                    <p class="progress">0%</p>
+                    <p class="description">Loading server...</p>
+                </div>
+
+                <div class="categories">
+                    <div class="buttons">
+
+                    </div>
+                    <div class="carousel">
+                        <div class="socialmedia">
+
+                        </div>
+                        <div class="staff">
+                            <div class="previous"></div>
+                            <div class="cards">
+                                <div class="innercards">
+        
+                                </div>
+                                <div class="pages">
+                                    
+                                </div>
+                            </div>
+                            <div class="next"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hideoverlay">
+                    <div class="bind"></div>
+                    HIDE OVERLAY/SHOW VIDEO
+                </div>
+            </div>
+        </div>
+
+        <script src="assets/scripts/config.js" type="text/javascript"></script>
+        <script src="assets/scripts/main.js" type="text/javascript"></script>
+
+        <audio id="music" autoplay>
+            <source src="" tyle="audio/mpeg">
+        </audio>
+    </body>
+</html>

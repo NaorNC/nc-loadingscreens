@@ -1,0 +1,842 @@
+/* -------------------------- */
+/* NC Loading screen */
+/* 2022 @ Discord.gg/cKt4Mpd2PQ (NaorNC#8998) */
+/* -------------------------- */
+
+body {
+    background: rgb(0, 0, 0);
+    overflow: hidden;
+}
+
+#cursor {
+    position: fixed;
+    width: 1.5vw;
+
+    z-index: 99999999999;
+    pointer-events: none;
+    user-select: none;
+}
+
+.bg {
+    position: fixed;
+    top: -5%;
+    left: -5%;
+
+    width: 110%;
+    height: 110%;
+    z-index: -1;
+}
+
+.overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    backdrop-filter: blur(.5vw);
+    background: radial-gradient(circle at top right, #7100c836, rgba(2, 62, 215, .3));
+    transition: opacity .5s;
+}
+
+/* -------------- */
+/* MAIN CONTAINER */
+/* -------------- */
+.overlay .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+}
+
+/* Hide overlay */
+
+.overlay .cornercontainer {
+    position: absolute;
+    top: 5%;
+    right: 3%;
+}
+
+.overlay .cornercontainer > .top {
+    display: flex;
+    gap: 0.6vw;
+}
+
+.overlay .cornercontainer > .top > .left,
+.overlay .cornercontainer > .top > .right {
+    flex-basis: 50%;
+    justify-content: right;
+}
+
+.overlay .cornercontainer > .top > .left > * {
+    width: max-content;
+    margin: 0;
+    margin-left: auto;
+
+    line-height: 0.9vw;
+    color: rgb(255, 0, 0);
+    font-family: "PoppinsSemiBold";
+}
+
+.overlay .cornercontainer > .top .title {
+    font-size: 0.8vw;
+    text-transform: uppercase;
+}
+
+.overlay .cornercontainer > .top .date {
+    color: rgba(255, 255, 255, 0.6);
+    font-family: "Poppins";
+    font-size: 0.6vw;
+}
+
+.overlay .cornercontainer > .top .state {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    font-size: 0.65vw;
+}
+
+.overlay .cornercontainer > .top .state::before {
+    content: "";
+    position: absolute;
+    left: -0.8vw;
+
+    width: 0.15vw;
+    height: 0.15vw;
+    background: #ff0000;
+    background-clip: padding-box;
+
+    border: solid 0.2vw rgb(255, 255, 255);
+    border-radius: 2vw;
+}
+
+.overlay .cornercontainer > .top > .right > .logo {
+    width: 2.2vw;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+.overlay .cornercontainer > .sounds {
+    display: flex;
+    position: relative;
+    top: 3%;
+
+    background-color: #ff0000;
+    border-radius: .5vw;
+
+    transform: skew(-20deg, 0);
+
+    margin-top: 0.5vw;
+    margin-left: auto;
+
+    width: 4.8vw;
+}
+
+.overlay .cornercontainer > .sounds > .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 1.3vw;
+    height: 1.3vw;
+
+    background-color: #ffffff;
+    border-radius: .5vw;
+
+    font-size: .6vw;
+    color: rgb(255, 0, 0);
+}
+
+.overlay .cornercontainer > .sounds > .icon > * {
+    transform: skew(20deg, 0deg);
+}
+
+.overlay .cornercontainer > .sounds > .switch {
+    position: relative;
+    width: 3.5vw;
+}
+
+.overlay .cornercontainer > .sounds > .switch > .form-switch {
+    display: block;
+
+    user-select: none;
+
+    width: 100%;
+    height: 1.3vw;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.overlay .cornercontainer > .sounds > .switch > .label {
+    margin: 0;
+    margin-bottom: .2vw;
+
+    text-align: center;
+    color: rgba(255, 0, 0, 0.7);
+    font-size: .6vw;
+    font-family: Poppins;
+}
+
+.overlay .cornercontainer > .sounds > .switch > .form-switch > i {
+    display: block;
+    margin: auto;
+    width: 100%;
+    height: 1.3vw;
+
+    transition: all .3s linear;
+}
+
+.overlay .cornercontainer > .sounds > .switch > .left,
+.overlay .cornercontainer > .sounds > .switch > .right {
+    position: absolute;
+    bottom: 0;
+
+    line-height: 1.3vw;
+    color: white;
+    font-size: .5vw;
+    font-family: PoppinsMedium;
+    pointer-events: none;
+
+    transform: skew(20deg, 0);
+
+    z-index: 99;
+}
+
+.overlay .cornercontainer > .sounds > .switch > .left {
+    left: 12%;
+}
+
+.overlay .cornercontainer > .sounds > .switch > .right {
+    right: 12%;
+}
+
+.overlay .cornercontainer > .sounds > .switch > .form-switch > i::after {
+    content: "";
+    position: absolute;
+    left: 0;
+
+    width: 50%;
+    height: 100%;
+    background-color: #000000;
+    border-radius: .5vw;
+    box-shadow: 0 0 .5vw 0 #000000;
+
+    transition: all .2s ease-in-out;
+    transform-origin: left;
+}
+
+.overlay .cornercontainer > .sounds > .switch > .form-switch > input { display: none; }
+
+.overlay .cornercontainer > .sounds > .switch > .form-switch > input:active + i::after { transform: scale(1.2, 1.0); }  
+
+.overlay .cornercontainer > .sounds > .switch > .form-switch > input:checked + i::after { transform: translateX(100%) }  
+
+.overlay .cornercontainer > .sounds > .switch > .form-switch > input:checked:active + i::after { transform: translateX(100%) scale(1.2, 1.0); transform-origin: right; }  
+
+/* Socials */
+
+.overlay .container > .socials {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.overlay .container > .socials > .title {
+    writing-mode: vertical-rl;
+    margin: 0;
+
+    color: rgb(255, 0, 0);
+    font-size: .8vw;
+    font-family: PoppinsSemibold;
+}
+
+.overlay .container > .socials > .line {
+    flex-shrink: 0;
+
+    margin: .7vw 0vw;
+
+    height: 5vw;
+    width: .05vw;
+
+    background: rgb(255, 0, 0);
+}
+
+.overlay .container > .socials > .buttons > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    margin-bottom: .7vw;
+   
+    width: 2vw;
+    height: 2vw;
+
+    background: rgb(255, 0, 0);
+
+    box-shadow: 0 0 .3vw 0 rgba(255, 0, 0, 0.8);
+    transition: color .15s;
+}
+
+.overlay .container > .socials > .buttons > a:hover {
+    background: rgb(255, 0, 0)
+}
+
+.overlay .container > .socials > .buttons > a::after {
+    content: "Copied to clipboard!";
+    position: absolute;
+    left: 120%;
+    transform: scale(.7);
+
+    width: max-content;
+
+    margin: 0;
+    padding: .3vw .7vw;
+    background: rgba(0, 0, 0, .3);
+
+    color: rgb(255, 0, 0);
+    font-size: .6vw;
+    font-family: PoppinsMedium;
+    opacity: .0;
+    backdrop-filter: blur(.5vw);
+
+    pointer-events: none;
+    user-select: none;
+    z-index: 99999;
+    transition: all .15s;
+}
+
+.overlay .container > .socials > .buttons > a.copied::after {
+    transform: scale(1.0);
+    opacity: 1.0;
+}
+
+.overlay .container > .socials > .buttons > a > img {
+    width: 1vw;
+}
+
+/* Information */
+
+.overlay .container > .information {
+    flex-basis: 33%;
+    margin-right: -1vw;
+    padding-left: 3vw;
+    box-sizing: border-box;
+}
+
+.overlay .container > .information > * {
+    position: relative;
+    margin: 0;
+}
+
+.overlay .container > .information > .title {
+    margin-left: .4vw;
+
+    color: rgb(255, 255, 255);
+    font-size: 1.2vw;
+    font-family: PoppinsSemibold;
+}
+
+.overlay .container > .information > .title::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -.1vw;
+
+    width: 1vw;
+    height: 1.9vw;
+
+    transform: skew(-20deg, 0deg);
+
+    background: #000000;
+    box-shadow: 0 0 .5vw 0 #000000;
+    z-index: -1;
+}
+
+.overlay .container > .information > .title::after {
+    content: "NC:RP";
+    position: absolute;
+    bottom: -4vw;
+    left: -2vw;
+
+    background: linear-gradient(to bottom right, rgba(255, 0, 0, 0.363) 0%, transparent 70%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    font-size: 9vw;
+    font-family: PoppinsSemibold;
+    margin: 0;
+
+    user-select: none;
+    z-index: -1;
+}
+
+.overlay .container > .information > .description {
+    height: 6vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: .5vw;
+    padding-top: .6vw;
+
+    border-left: solid white .15vw;
+    border-image: linear-gradient(to bottom, #fd0101, #0194fd00) 1;
+
+    transition: height .5s;
+}
+
+.overlay .container > .information > .description > p {
+    margin: 0;
+
+    color: rgb(255, 255, 255);
+    font-size: .8vw;
+    font-family: "Poppins";
+    font-weight: normal;
+}
+
+.overlay .container > .information > .buttons {
+    margin-top: .9vw;
+    height: 1.8vw;
+}
+
+.overlay .container > .information > .buttons > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 2.4vw;
+
+    height: 1.8vw;
+
+    background: linear-gradient(to top right, rgba(183, 15, 15, 0.4), rgba(232, 35, 35, 0.45));
+    color: white;
+    
+    outline: 0;
+    border: solid .15vw rgba(226, 41, 41, 0.7);
+
+    line-height: 1.7vw;
+    font-size: .6vw;
+    font-family: "PoppinsMedium";
+
+    transition: background .15s;
+}
+
+.overlay .container > .information > .buttons > *:hover {
+    background-color: rgba(232, 35, 35, 0.2);
+}
+
+/* Loader */
+
+.overlay .container > .loader {
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: center;
+    align-items: center;
+
+    flex-basis: 20%;
+
+    margin: 0 6vw;
+}
+
+.overlay .container > .loader > .progress {
+    margin: 0;
+    margin-top: .8vw;
+
+    color: white;
+    font-size: .9vw;
+    font-family: "PoppinsSemibold";
+}
+
+.overlay .container > .loader > .description {
+    margin: 0;
+    margin-top: .0vw;
+
+    color: rgba(255, 255, 255, 0.5);
+    font-size: .65vw;
+    font-family: "Poppins";
+}
+
+.overlay .container > .loader > .logo {
+    position: relative;
+}
+
+.overlay .container > .loader > .logo > * {
+    display: block;
+    
+    width: 11vw;
+
+    -webkit-user-drag: none;
+    user-select: none;
+    object-fit: cover;
+    object-position: bottom;
+
+    image-rendering: -webkit-optimize-contrast;
+}
+
+.overlay .container > .loader .transparent-logo {
+    position: relative;
+}
+
+.overlay .container > .loader .filled-logo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    height: 0%;
+
+    filter: drop-shadow(0 0 .7vw #fd01018a);
+    transition: height .3s;
+}
+
+/* Team */
+
+.overlay .container > .categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 33%;
+    max-width: 33%;
+    margin-top: 4vw;
+    margin-left: -1vw;
+}
+
+.overlay .container > .categories > .buttons {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 2vw;
+    margin-bottom: 0.5vw;
+}
+
+.overlay .container > .categories > .buttons > p {
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    margin: 0;
+
+    font-size: 0.7vw;
+    font-family: "Poppins";
+    color: rgba(255, 255, 255, 0.7);
+
+    text-align: center;
+    text-transform: uppercase;
+    user-select: none;
+    transition: 0.3s color;
+}
+
+.overlay .container > .categories > .buttons > p.active {
+    font-family: "PoppinsMedium";
+    color: white;
+}
+
+.overlay .container > .categories > .buttons > p::before {
+    content: "";
+    position: absolute;
+    bottom: -0.3vw;
+
+    width: 0vw;
+    height: 0.15vw;
+
+    background: #fd0101;
+    box-shadow: 0 0 .5vw 0 #fd0101;
+    border-radius: 1vw;
+
+    transition: 0.3s width;
+}
+
+.overlay .container > .categories > .buttons > p.active::before {
+    width: 1.5vw;
+}
+
+.overlay .container > .categories .carousel {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    padding: 0.5vw 0;
+}
+
+.overlay .container > .categories > .carousel > * {
+    transition: 0.5s transform;
+}
+
+.overlay .container > .categories .socialmedia {
+    display: flex;
+    gap: 1vw;
+
+    flex-shrink: 0;
+    
+    align-content: flex-start;
+    flex-wrap: wrap;
+
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 4vw;
+}
+
+.overlay .container > .categories .socialmedia > .box {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    flex-shrink: 1;
+    flex-grow: 1;
+
+    min-width: 0;
+    height: 4vw;
+    background: linear-gradient(to bottom left, rgba(226, 41, 41, 0.25), rgba(183, 15, 15, 0.2));
+    box-shadow: 0 0 0.5vw 0 #fd010147;
+
+    border: solid 0.2vw #e2292962;
+    border-radius: 1.4vw;
+
+    padding: 0 1vw;
+    box-sizing: border-box;
+
+    transition: 0.2s background-color;
+}
+
+.overlay .container > .categories .socialmedia > .box .icon {
+    width: 1.5vw;
+    height: 1.5vw;
+
+    margin-right: 1vw;
+}
+
+.overlay .container > .categories .socialmedia > .box * {
+    user-select: none;
+}
+
+.overlay .container > .categories .socialmedia > .box .title {
+    margin: 0;
+
+    font-size: 0.7vw;
+    font-family: "PoppinsSemibold";
+    color: white;
+}
+
+.overlay .container > .categories .socialmedia > .box .description {
+    margin: 0;
+
+    font-size: 0.65vw;
+    font-family: "Poppins";
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.overlay .container > .categories .socialmedia > .box:hover {
+    background-color: rgba(35, 158, 232, .2);
+}
+
+.overlay .container > .categories .socialmedia > .box::after {
+    content: "Copied to clipboard!";
+    position: absolute;
+
+    transform: scale(.7) translateX(-50%);
+    transform-origin: left;
+
+    top: 110%;
+    left: 50%;
+
+    width: max-content;
+
+    margin: 0;
+    padding: .3vw .7vw;
+    background: rgba(0, 0, 0, .3);
+
+    color: white;
+    font-size: .6vw;
+    font-family: PoppinsMedium;
+    opacity: .0;
+    backdrop-filter: blur(.5vw);
+
+    pointer-events: none;
+    user-select: none;
+    z-index: 99999;
+    transition: all .15s;
+}
+
+.overlay .container > .categories .socialmedia > .box.copied::after {
+    transform: scale(1.0) translateX(-50%);
+    opacity: 1.0;
+}
+
+.overlay .container > .categories .staff {
+    display: flex;
+    flex-shrink: 0;
+    
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+}
+
+.overlay .container > .categories .staff .cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: relative;
+    width: 23.4vw;
+    height: 16.5vw;
+    overflow-x: hidden;
+}
+
+.overlay .container > .categories .staff .innercards {
+    display: flex;
+    width: 100%;
+    height: 14.5vw;
+    transform: translateX(calc(0% - .6vw));
+
+    transition: transform .5s;
+}
+
+.overlay .container > .categories .staff .pages {
+    display: flex;
+    margin-top: .5vw;
+}
+
+.overlay .container > .categories .staff .pages > div {
+    width: .4vw;
+    height: .4vw;
+
+    margin: 0 .15vw;
+
+    border-radius: 1vw;
+    background: rgba(255, 255, 255, .5);
+    transition: all .15s;
+}
+
+.overlay .container > .categories .staff .pages > div.active {
+    background: white;
+    transform: scale(1.2);
+}
+
+.overlay .container > .categories .staff .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: relative;
+    flex-shrink: 0;
+    flex-grow: 0;
+
+    width: 11vw;
+    height: 95%;
+
+    margin: 0 .6vw;
+
+    border-radius: 1.2vw;
+    background: linear-gradient(to bottom left, rgba(41, 146, 226, .25), rgba(15, 120, 183, .2)), url(../media/border.png);
+    background-size: cover, 112% 111%;
+    background-position: center, center;
+}
+
+.overlay .container > .categories .staff .card > .name {
+    margin: 0;
+    margin-top: 1.7vw;
+
+    color: white;
+    font-size: 1vw;
+    font-family: PoppinsMedium;
+}
+
+.overlay .container > .categories .staff .card > .description {
+    margin: 0;
+    margin-top: .5vw;
+
+    color: rgba(255, 255, 255, .7);
+    font-size: .7vw;
+    font-family: Poppins;
+}
+
+.overlay .container > .categories .staff .card > .avatar {
+    display: block;
+    margin: 0 auto;
+    margin-top: 1.5vw;
+
+    width: 5vw;
+
+    border-radius: 5vw;
+    object-fit: cover;
+}
+
+.overlay .container > .categories .staff .card::after {
+    content: "";
+    position: absolute;
+    bottom: -.15vw;
+    width: 50%;
+    height: .3vw;
+
+    border-radius: 1vw;
+    background: var(--color);
+    box-shadow: 0 0 .5vw 0 var(--color);
+}
+
+.overlay .container > .categories .staff .previous,
+.overlay .container > .categories .staff .next {
+    margin: .8vw;
+    width: 1.5vw;
+    height: 1.5vw;
+
+    background: url(../media/icons/chevron.png);
+    background-size: cover;
+
+    margin-bottom: 2.5vw;
+
+    opacity: .5;
+    transition: opacity .15s;
+}
+
+.overlay .container > .categories .staff .previous:hover,
+.overlay .container > .categories .staff .next:hover {
+    opacity: 1.0;
+}
+
+.overlay .container > .categories .staff .next {
+    transform: rotate(180deg);
+}
+
+/* Hide overlay */
+
+.overlay .container > .hideoverlay {
+    display: flex;
+    position: absolute;
+    bottom: 3%;
+    left: calc(11.5% - 6.5vw);
+    user-select: none;
+}
+
+.overlay .container > .hideoverlay .bind {
+    width: 1vw;
+    height: 1vw;
+    border-radius: .2vw;
+    background: white;
+
+    margin-right: .4vw;
+
+    line-height: 1vw;
+    text-align: center;
+    color: black;
+    font-size: .7vw;
+    font-family: PoppinsSemibold;
+}
+
+.overlay .container > .hideoverlay {
+    line-height: 1vw;
+    color: rgba(255, 255, 255, .7);
+    font-size: .6vw;
+    font-family: Poppins;
+}
