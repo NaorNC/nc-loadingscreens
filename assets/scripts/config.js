@@ -27,4 +27,13 @@ Config.Categories = [
 ];
 
 // Music
-Config.Song = "song.mp3";
+// Music
+var r_text = new Array ();
+r_text[0] = "Song.mp3";
+r_text[1] = "Song.mp3";
+r_text[2] = "Song.mp3";
+r_text[3] = "Song.mp3";
+r_text[4] = "Song.mp3";
+var i = Math.floor(Math.random() * r_text.length)
+
+Config.Song = r_text[i].toString();
