@@ -39,14 +39,37 @@ function setup() {
     let year = currentDate.getFullYear();
     let month = (currentDate.getMonth() + 1) < 10 ? "0" + (currentDate.getMonth() + 1) : (currentDate.getMonth() + 1);
     let day = currentDate.getDate() < 10 ? "0" + currentDate.getDate() : currentDate.getDate();
-    $("#date").html(year + "-" + month + "-" + day)
+    $("#date").text(year + "-" + month + "-" + day)
 
     // Online player count
-    fetch("http://" + Config.ServerIP + "/info.json").then(res => res.json()).then(info => {
-        fetch("http://" + Config.ServerIP + "/players.json").then(res => res.json()).then(players => {
-            $("#clients").html(players.length + "/" + info.vars.sv_maxClients)
-        })
-    })
+    fetch("http://" + Config.ServerIP + "/info.json", { method: "GET", mode: "cors" }).then(res => {
+        if (!res.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return res.json();
+    }).then(info => {
+        if (typeof info.vars !== "undefined" && typeof info.vars.sv_maxClients !== "undefined") {
+            fetch("http://" + Config.ServerIP + "/players.json", { method: "GET", mode: "cors" }).then(res => {
+                if (!res.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return res.json();
+            }).then(players => {
+                if (Array.isArray(players)) {
+                    $("#clients").text(players.length + "/" + info.vars.sv_maxClients);
+                } else {
+                    console.error("Invalid players data format");
+                }
+            }).catch(error => {
+                console.error("There was a problem fetching players data: ", error);
+            });
+        } else {
+            console.error("Invalid info data format");
+        }
+    }).catch(error => {
+        console.error("There was a problem fetching server info: ", error);
+    });
+}
 
     // Music
     song = new Audio("assets/media/" + Config.Song);
@@ -127,11 +150,13 @@ function setup() {
             $(".staff .innercards").css("transform", `translate3d(calc(-${currentPage * 50}% - ${(currentPage+1) * .5}vw), 0, 0)`)
         }
     });
-}
 
 function loadProgress(progress) {
     $(".loader .filled-logo").css("height", progress + "%");
-    $(".loader .progress").html(progress + "%");
+    
+    const progressText = document.createElement('span');
+    progressText.textContent = progress + "%";
+    $(".loader .progress").empty().append(progressText);
 }
 
 window.addEventListener('message', function(e) {
